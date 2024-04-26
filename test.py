@@ -27,6 +27,6 @@ from celery import chain, group, chord, chunks
 # result = chord(add.s(5, 5), add_bind.s(5, 5))(division_bind.s(5, 5))
 # print(result.get())
 # -----------------------------------------------------------------------
-# result = add.chunks(zip(range(10), range(100)), 10)
+# result = add.chunks(zip(range(100), range(100)), 10)
 # print(result())
 # -----------------------------------------------------------------------
