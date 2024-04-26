@@ -5,6 +5,16 @@ from celery.utils.log import get_task_logger
 app = Celery(main='main', broker='amqp://guest:guest@localhost:5672/', backend='rpc://')
 logger = get_task_logger(__name__)
 
+app.conf.update(
+    task_time_limit=60,
+    task_soft_time_limit=30,
+    worker_concurrency=4,
+    worker_prefetch_multiplier=1,
+    task_ignore_result=True,
+    task_always_eager=False,
+    task_acks_late=False,
+)
+
 
 @app.task(name='main.add')
 def add(x, y):
