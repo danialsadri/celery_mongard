@@ -18,15 +18,19 @@ from celery import chain, group, chord, chunks
 # result = division_bind.apply_async((5, 5), link=add.signature((5, 5), immutable=True))
 # print(result)
 # -----------------------------------------------------------------------
+# Chains
 # result = chain(add.s(5, 5), add_bind.s(5))
 # print(result().get())
-# -----------------------------------------------------------------------
+
+# Groups
 # result = group(add.s(5, 5), add_bind.s(5, 5))
 # print(result().get())
-# -----------------------------------------------------------------------
+
+# Chords
 # result = chord(add.s(5, 5), add_bind.s(5, 5))(division_bind.s(5, 5))
 # print(result.get())
-# -----------------------------------------------------------------------
+
+# Chunks
 # result = add.chunks(zip(range(100), range(100)), 10)
 # print(result())
 # -----------------------------------------------------------------------
