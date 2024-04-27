@@ -1,5 +1,6 @@
 from time import sleep
 from celery import Celery
+from celery import signals
 from celery.utils.log import get_task_logger
 
 app = Celery(main='main', broker='amqp://guest:guest@localhost:5672/', backend='rpc://')
@@ -35,3 +36,10 @@ def division_bind(self, x, y):
     except ZeroDivisionError:
         logger.info('sorry...')
         self.retry(countdown=10, max_retries=2)
+
+
+@signals.task_prerun.connect(sender=add)
+def show(sender=None, **kwargs):
+    print("task before run")
+    print(sender)
+    print(kwargs)
