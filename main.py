@@ -1,5 +1,4 @@
 from time import sleep
-
 from celery import Celery
 from celery import signals
 from celery.utils.log import get_task_logger
