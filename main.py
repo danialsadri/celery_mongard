@@ -1,4 +1,5 @@
 from time import sleep
+
 from celery import Celery
 from celery import signals
 from celery.utils.log import get_task_logger
@@ -15,7 +16,7 @@ app.conf.update(
     task_ignore_result=True,
     task_always_eager=False,
     task_acks_late=False,
-    broker_connection_retry_on_startup=True,)
+    broker_connection_retry_on_startup=True)
 
 app.conf.beat_schedule = {
     'call-show-name-every-ten-seconds': {
