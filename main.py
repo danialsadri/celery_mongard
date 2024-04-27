@@ -4,6 +4,7 @@ from celery import signals
 from celery.utils.log import get_task_logger
 
 app = Celery(main='main', broker='amqp://guest:guest@localhost:5672/', backend='rpc://')
+app.config_from_object('celery_config')
 logger = get_task_logger(__name__)
 
 app.conf.update(
@@ -14,7 +15,7 @@ app.conf.update(
     task_ignore_result=True,
     task_always_eager=False,
     task_acks_late=False,
-)
+    broker_connection_retry_on_startup=True,)
 
 app.conf.beat_schedule = {
     'call-show-name-every-ten-seconds': {
