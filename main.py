@@ -17,13 +17,13 @@ app.conf.update(
     task_acks_late=False,
     broker_connection_retry_on_startup=True)
 
-app.conf.beat_schedule = {
-    'call-show-name-every-ten-seconds': {
-        'task': 'main.show_name',
-        'schedule': 10,
-        'args': ('danial',),
-    },
-}
+# app.conf.beat_schedule = {
+#     'call-show-name-every-ten-seconds': {
+#         'task': 'main.show_name',
+#         'schedule': 10,
+#         'args': ('danial',),
+#     },
+# }
 
 
 @app.task(name='main.add')
@@ -52,8 +52,8 @@ def show_name(name):
     return f"my name is {name}"
 
 
-@signals.task_prerun.connect(sender=add)
-def show(sender=None, **kwargs):
-    print("task before run")
-    print(sender)
-    print(kwargs)
+# @signals.task_prerun.connect(sender=add)
+# def show(sender=None, **kwargs):
+#     print("task before run")
+#     print(sender)
+#     print(kwargs)
