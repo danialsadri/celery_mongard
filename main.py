@@ -16,6 +16,14 @@ app.conf.update(
     task_acks_late=False,
 )
 
+app.conf.beat_schedule = {
+    'call-show-name-every-ten-seconds': {
+        'task': 'main.show_name',
+        'schedule': 10,
+        'args': ('danial',),
+    },
+}
+
 
 @app.task(name='main.add')
 def add(x, y):
@@ -36,6 +44,11 @@ def division_bind(self, x, y):
     except ZeroDivisionError:
         logger.info('sorry...')
         self.retry(countdown=10, max_retries=2)
+
+
+@app.task(name='main.show_name')
+def show_name(name):
+    return f"my name is {name}"
 
 
 @signals.task_prerun.connect(sender=add)
